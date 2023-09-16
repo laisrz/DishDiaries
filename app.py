@@ -23,7 +23,6 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS users(
                         user_id INTEGER NOT NULL PRIMARY KEY,
                         username TEXT NOT NULL,
                         password TEXT NOT NULL,
-                        email TEXT NOT NULL,
                         photo BLOB
             )''')
 
@@ -54,9 +53,22 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS recipes (
                       )""")
 
 
+@app.after_request
+def after_request(response):
+    """Ensure responses aren't cached"""
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Expires"] = 0
+    response.headers["Pragma"] = "no-cache"
+    return response
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
+    # Database connection
+    conn = sqlite3.connect('dishdiaries.db')
+
+    cursor = conn.cursor()
 
     # Forget any user_id
     session.clear()
@@ -76,20 +88,22 @@ def login():
             return response
 
         # Query database for username
-        rows = cursor.execute(
-            "SELECT * FROM users WHERE username = ?", request.form.get("username")
+        cursor.execute(
+            "SELECT * FROM users WHERE username = ?", [request.form.get("username")]
         )
+        rows = cursor.fetchall()
+        conn.close()
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(
-            rows[0]["hash"], request.form.get("password")
+            rows[0][2], request.form.get("password")
         ):
             response = jsonify({"message": "Username and/or password doesn't exist"})
             response.status_code = 400
             return response
 
         # Remember which user has logged in
-        session["user_id"] = rows[0]["id"]
+        session["user_id"] = rows[0][0]
 
         # Redirect user to home page
         return redirect("/")
@@ -97,16 +111,76 @@ def login():
     # User reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("login.html")
+    
+
+@app.route("/logout")
+def logout():
+    """Log user out"""
+
+    # Forget any user_id
+    session.clear()
+
+    # Redirect user to login form
+    return redirect("/")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    """Register user"""
+    # POST
+    if request.method == "POST":
+        # Database connection
+        conn = sqlite3.connect('dishdiaries.db')
 
-    if request.method == 'GET':
-        return render_template("/register.html")
+        cursor = conn.cursor()
+        # Get username and password from form
+        username = request.form.get("username")
+        password = request.form.get("password")
+
+        # check if username is blank
+        if not username:
+            response = jsonify({"message": "Must provide username"})
+            response.status_code = 400
+            return response
+        
+        # check if username already exists
+        cursor.execute("SELECT username FROM users WHERE username = ?", [username])
+        name = cursor.fetchall()
+
+        if name:
+            response = jsonify({"message": "Username already in use"})
+            response.status_code = 400
+            return response
+
+        # check if password or confirm password is blank
+        if not password:
+            response = jsonify({"message": "Password must be provided"})
+            response.status_code = 400
+            return response
+    
+        if not password:
+            response = jsonify({"message": "Confirm password!"})
+            response.status_code = 400
+            return response
+
+        # check if password and confirmation match
+        if password != request.form.get("confirm_password"):
+            response = jsonify({"message": "Confirm password and password don't match!"})
+            response.status_code = 400
+            return response
+
+        hash = generate_password_hash(password)
+        cursor.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, hash))
+        conn.commit()
+        conn.close()
+        return redirect("/")
+
+    # GET
+    return render_template("register.html")
     
 
 @app.route("/")
+@login_required
 def index():
     return render_template("/index.html")
 

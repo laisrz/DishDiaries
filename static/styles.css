@@ -1,0 +1,97 @@
+/* Gerais */
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    padding: 40px 0;
+}
+
+.row {
+    padding: 0;
+}
+
+p {
+    font-size: 18px;
+}
+
+/* Barra de Navegação */
+
+.navbar {
+    background-color: #defeff;
+}
+
+.navbar-brand {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#logo {
+    width: 40px;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding: 1rem, 0.8rem;
+}
+
+/* Login Page */
+
+#login-image {
+    padding: 0 1rem 0 14rem;
+}
+
+#login-text {
+    padding: 0 17rem 0 1rem;
+    border-style: solid #000000;
+}
+
+/* Index Page */
+/* Sidebar */
+
+ .sidenav {
+    height: 100%;
+    width: 160px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 70px; /* Stay at the top */
+    left: 0;
+    background-color: #ffdeec;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+  }
+  
+  /* The navigation menu links */
+  .sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    text-align: left;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: black;
+  }
+  
+
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  } 
+
+/* Modal to add new recipe */
+
+#addPhoto {
+    text-align: left;
+}
+
+/* Créditos */
+
+.creditos {
+    font-size: 10px;
+}

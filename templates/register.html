@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6" id="login-image">
+            <div class="wrap ">
+                <img class="img-fluid" src="/static/images/login_image.jpg" style="width: 280px; height: 380px">
+            </div>
+            <div class="text-center">
+                <p class="creditos">Photo by <a href="https://unsplash.com/pt-br/@calumlewis?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Calum Lewis</a> in <a href="https://unsplash.com/pt-br/fotografias/vA1L1jRTM70?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
+            </div>
+        </div>
+        <div class="login-wrap col-md-6" id="login-text">
+                <div class="d-flex">
+                    <div class="w-100">
+                        <h3 class="mb-4">Register</h3>
+                    </div>
+                </div>
+                <form action="#" class="signin-form">
+                    <div class="form-group mb-3">
+                        <label class="label" for="name">Username</label>
+                        <input type="text" class="form-control" placeholder="Username" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="label" for="password">Password</label>
+                        <input type="password" class="form-control" placeholder="Password" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="label" for="password"> Confirm Password</label>
+                        <input type="password" class="form-control" placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="form-control btn btn-primary rounded submit mb-3 px-3">Sign In</button>
+                    </div>
+                </form>
+                <p class="text-center">Already have an account? <a data-toggle="tab" href="/login">Log In</a></p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

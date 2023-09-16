@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    HOME
+{% endblock %}
+
+{% block main %}
+<!--Left side nav bar-->
+<div class="sidenav">
+    <a href="#">Search</a>
+    <p>Your Files</p>
+    <a href="#">Add new file</a>
+    <p>Recipes Saved</p>
+    <a href="#" data-bs-toggle="modal" data-bs-target="#addNewRecipe">Add new recipe</a>
+  </div>
+  
+<!--Modal to add new recipe-->
+  <div class="modal fade" id="addNewRecipe" tabindex="-1" role="dialog" aria-labelledby="newRecipe" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newRecipe">Add new recipe</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <label class="form-label">Recipe Title</label>
+            <input type="text" class="form-control" placeholder="Recipe Title">                        
+            <div class="mb-3">
+                <label for="formFileMultiple" class="form-label" id="addPhotos">Add photos</label>
+                <input class="form-control" type="file" id="formFileMultiple" multiple>
+            </div>
+            <div class="mb-3">
+                <label for="ingredients" class="form-label">Ingredients</label>
+                <textarea class="form-control" id="ingredients" rows="5"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="directions" class="form-label">Method</label>
+                <textarea class="form-control" id="directions" rows="5"></textarea>
+            </div>
+            <div class="mb-5">
+                <label for="notes" class="form-label">Notes</label>
+                <textarea class="form-control" id="notes" rows="5"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="formFileMultiple" class="form-label" id="addPhotos">Your photos</label>
+                <input class="form-control" type="file" id="formFileMultiple" multiple>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

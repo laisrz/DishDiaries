@@ -36,14 +36,25 @@ p {
 }
 
 /* Login Page */
-
-#login-image {
-    padding: 0 1rem 0 14rem;
+.login-wrap {
+   padding: 2rem 3rem 0 0;
+}
+.login_image {
+    margin-top: 2rem;
 }
 
-#login-text {
-    padding: 0 17rem 0 1rem;
-    border-style: solid #000000;
+.login-border {
+    margin-left: 200px;
+    margin-right: 200px;
+    border-style: solid;
+    border-color: black;
+    background-color: #defeff;
+}
+.checkbox-primary {
+    font-size: 14px;
+}
+.register-font {
+    font-size: 16px;
 }
 
 /* Index Page */
@@ -51,14 +62,14 @@ p {
 
  .sidenav {
     height: 100%;
-    width: 160px; /* Set the width of the sidebar */
+    width: 12%; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     top: 70px; /* Stay at the top */
     left: 0;
-    background-color: #ffdeec;
+    background-color: #6759a5;
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 20px;
+    padding-top: 30px;
   }
   
   /* The navigation menu links */
@@ -88,6 +99,19 @@ p {
 
 #addPhoto {
     text-align: left;
+}
+
+/* Card for recipes */
+.recipecard {
+    margin-left: 12rem;
+    margin-right: 2rem;
+}
+
+.card {
+    margin-top: 2rem;
+}
+.card-title {
+    font-family: 'Roboto', sans-serif;
 }
 
 /* Créditos */

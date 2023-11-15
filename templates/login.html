@@ -7,16 +7,17 @@
 {% block main %}
 
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6" id="login-image">
+    <div class="row justify-content-center login-border">
+        <div class="col-md-6 login_image">
             <div class="wrap ">
-                <img class="img-fluid" src="/static/images/login_image.jpg" style="width: 280px; height: 380px">
+                <img class="img-fluid" src="/static/images/login_image.jpg" style="width: 300px; height: 400px">
             </div>
             <div class="text-center">
                 <p class="creditos">Photo by <a href="https://unsplash.com/pt-br/@calumlewis?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Calum Lewis</a> in <a href="https://unsplash.com/pt-br/fotografias/vA1L1jRTM70?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
             </div>
         </div>
-        <div class="login-wrap col-md-6" id="login-text">
+        <div class="login-wrap col-md-6">
+            
                 <div class="d-flex">
                     <div class="w-100">
                         <h3 class="mb-4">Sign In</h3>
@@ -41,16 +42,13 @@
                             <span class="checkmark"></span>
                             </label>
                         </div>
-                        <div class="w-50 text-md-right">
-                        <a href="#">Forgot Password</a>
-                        </div>
                     </div>
                 </form>
-                <p class="text-center">Not a member? <a data-toggle="tab" href="/register">Register</a></p>
-            </div>
+                <p class="text-center register-font">Not a member? <a data-toggle="tab" href="/register">Register</a></p>
+            
         </div>
     </div>
-
+</div>
 {% endblock %}
 
 

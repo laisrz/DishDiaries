@@ -1,0 +1,121 @@
+/* Gerais */
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    padding: 40px 0;
+}
+
+.row {
+    padding: 0;
+}
+
+p {
+    font-size: 18px;
+}
+
+/* Barra de Navegação */
+
+.navbar {
+    background-color: #defeff;
+}
+
+.navbar-brand {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#logo {
+    width: 40px;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding: 1rem, 0.8rem;
+}
+
+/* Login Page */
+.login-wrap {
+   padding: 2rem 3rem 0 0;
+}
+.login_image {
+    margin-top: 2rem;
+}
+
+.login-border {
+    margin-left: 200px;
+    margin-right: 200px;
+    border-style: solid;
+    border-color: black;
+    background-color: #defeff;
+}
+.checkbox-primary {
+    font-size: 14px;
+}
+.register-font {
+    font-size: 16px;
+}
+
+/* Index Page */
+/* Sidebar */
+
+ .sidenav {
+    height: 100%;
+    width: 12%; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 70px; /* Stay at the top */
+    left: 0;
+    background-color: #6759a5;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 30px;
+  }
+  
+  /* The navigation menu links */
+  .sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    text-align: left;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: black;
+  }
+  
+
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  } 
+
+/* Modal to add new recipe */
+
+#addPhoto {
+    text-align: left;
+}
+
+/* Card for recipes */
+.recipecard {
+    margin-left: 12rem;
+    margin-right: 2rem;
+}
+
+.card {
+    margin-top: 2rem;
+}
+.card-title {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Créditos */
+
+.creditos {
+    font-size: 10px;
+}

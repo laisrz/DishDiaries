@@ -20,6 +20,7 @@ p {
 
 .navbar {
     background-color: #defeff;
+    padding-right: 1.5rem;
 }
 
 .navbar-brand {
@@ -95,18 +96,23 @@ p {
     .sidenav a {font-size: 18px;}
   } 
 
+  .btn {
+    margin-left: 7px;
+  }
 
 /* Modal to add new recipe */
 
 
 /* Card for recipes */
 .recipecard {
-    margin-left: 12rem;
-    margin-right: 2rem;
+    margin-left: 13rem;
+    margin-right: 1rem;
 }
+
 
 .card {
     margin-top: 2rem;
+    margin-right: 4rem;
     width: 280px;
 }
 .card-title {
@@ -118,6 +124,7 @@ p {
 .card-img-top {
     height: 180px;
     width: 247px;
+    padding-right: ;
 }
 
 /* Recipes */

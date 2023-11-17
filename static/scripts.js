@@ -18,6 +18,10 @@ formURL.addEventListener('submit', event => {
 
         const newDivCard = document.createElement("div");
 
+        newDivCard.classList.add('col-sm-6');
+
+        const newDivCard1 = document.createElement("div");
+
         newDivCard.classList.add('card');
 
         const newDivCardBody = document.createElement("div");
@@ -49,6 +53,7 @@ formURL.addEventListener('submit', event => {
 
         
         // append all new elements to their parents
+        newDivCard.appendChild(newDivCard1);
         newDivCard.appendChild(newDivCardBody);
         newDivCardBody.appendChild(newH5);
         newDivCardBody.appendChild(newImg);
@@ -74,6 +79,10 @@ fetch('http://127.0.0.1:5000/recipes', {
     data.forEach((recipe) => {
 
         const newDivCard = document.createElement("div");
+
+        newDivCard.classList.add('col-sm-6');
+
+        const newDivCard1 = document.createElement("div");
 
         newDivCard.classList.add('card');
 
@@ -105,6 +114,7 @@ fetch('http://127.0.0.1:5000/recipes', {
 
         
         // append all new elements to their parents
+        newDivCard.appendChild(newDivCard1);
         newDivCard.appendChild(newDivCardBody);
         newDivCardBody.appendChild(newImg);
         newDivCardBody.appendChild(newH5);

@@ -39,9 +39,9 @@ formURL.addEventListener('submit', event => {
 
         newImg.src = data["photo_url"];
         
-        const newa = document.createElement("a");
+        const newa = document.createElement("button");
 
-        newa.classList.add('btn', 'btn-primary');
+        newa.classList.add('btn', 'btn-outline-info');
 
         newa.href =  `/${data['title']}`;
 
@@ -102,14 +102,14 @@ fetch('http://127.0.0.1:5000/recipes', {
 
         newImg.src = recipe["photo_url"];
         
-        const newa = document.createElement("a");
+        const newa = document.createElement("button");
         
-        newa.classList.add('btn', 'btn-primary');
+        newa.classList.add('btn', 'btn-outline-info', 'btn-sm');
         newa.setAttribute('id',`${recipe['title']}`);
 
         newH5.textContent = recipe['title'];
 
-        newa.textContent = 'Veja mais';
+        newa.textContent = 'Ir para receita';
 
 
         

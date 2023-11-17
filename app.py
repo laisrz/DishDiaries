@@ -6,7 +6,7 @@ from flask_session import Session
 import json
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import date
-from helpers import login_required
+from helpers import login_required, apology
 
 
 
@@ -74,15 +74,12 @@ def login():
         password = request.form.get("password")
         # Ensure username was submitted
         if not username:
-            flash("Must provide username")
-            return redirect(url_for('login'))
+            return apology("must provide username", 400)
             
 
         # Ensure password was submitted
         if not password:
-            response = jsonify({"message": "Must provide password"})
-            response.status_code = 400
-            return response
+           return apology("must provide password", 400)
 
         # Query database for username
         cursor.execute("SELECT * FROM users WHERE username = ?", [username])
@@ -93,9 +90,9 @@ def login():
         if len(rows) != 1 or not check_password_hash(
             rows[0][2], password
         ):
-            flash("Username and/or password doesn't exist")
-            return redirect(url_for('login'))
-
+            return apology("Username and/or password doesn't exist", 400)
+        
+        
         # Remember which user has logged in
         session["user_id"] = rows[0][0]
 
@@ -137,8 +134,7 @@ def register():
 
         # check if username is blank
         if not username:
-            flash("Must provide username")
-            return redirect(url_for('register'))
+            return apology("Must provide username", 400)
         
         # check if username already exists
         cursor.execute(
@@ -148,26 +144,18 @@ def register():
         name = cursor.fetchone()
 
         if name:
-            response = jsonify({"message": "Username already in use"})
-            response.status_code = 400
-            return response
+            return apology("Username already in use", 400)
 
         # check if password or confirm password is blank
         if not password:
-            response = jsonify({"message": "Password must be provided"})
-            response.status_code = 400
-            return response
+            return apology("Password must be provided", 400)
     
         if not request.form.get("confirm_password"):
-            response = jsonify({"message": "Confirm password!"})
-            response.status_code = 400
-            return response
+            return apology("Confirm password!", 400)
 
         # check if password and confirmation match
         if password != request.form.get("confirm_password"):
-            response = jsonify({"message": "Confirm password and password don't match!"})
-            response.status_code = 400
-            return response
+            return apology("Confirmed password and password don't match!", 400)
 
         hash = generate_password_hash(password)
 

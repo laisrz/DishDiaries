@@ -5,7 +5,7 @@ body {
 }
 
 .container {
-    padding: 40px 0;
+    padding: 10px 0;
 }
 
 .row {
@@ -95,11 +95,9 @@ p {
     .sidenav a {font-size: 18px;}
   } 
 
+
 /* Modal to add new recipe */
 
-#addPhoto {
-    text-align: left;
-}
 
 /* Card for recipes */
 .recipecard {
@@ -109,10 +107,27 @@ p {
 
 .card {
     margin-top: 2rem;
+    width: 280px;
 }
 .card-title {
     font-family: 'Roboto', sans-serif;
+    margin-top: 1rem;
 }
+   
+
+.card-img-top {
+    height: 180px;
+    width: 247px;
+}
+
+/* Recipes */
+
+article {
+    margin-left: 12rem;
+    margin-top: 0;
+    padding-top: 0;
+}
+
 
 /* Créditos */
 

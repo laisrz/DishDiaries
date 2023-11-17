@@ -68,20 +68,24 @@
         </div>
         <form id="addnewrecipe">
         <div class="modal-body">
-          <label class="form-label">Recipe Title</label>
-            <input type="text" name="title" class="form-control" placeholder="Recipe Title">                                 
-          <div class="mb-3">
-            <label for="ingredients" class="form-label">Ingredients</label>
-            <textarea class="form-control" name="ingredients" id="ingredients" rows="5"></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="directions" class="form-label">Method</label>
-            <textarea class="form-control" name="method" id="directions" rows="5"></textarea>
-          </div>
-          <div class="mb-5">
-            <label for="notes" class="form-label">Notes</label>
-            <textarea class="form-control" name="notes" id="notes" rows="5"></textarea>
-          </div>
+            <label class="form-label">Recipe Title</label>
+                <input type="text" name="title" class="form-control" placeholder="Recipe Title"> 
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Photo</label>
+                <input class="form-control" type="file" name="photo" id="addphoto">
+            </div>                       
+            <div class="mb-3">
+                <label for="ingredients" class="form-label">Ingredients</label>
+                <textarea class="form-control" name="ingredients" id="ingredients" wrap="hard" cols="20" rows="5"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="directions" class="form-label">Method</label>
+                <textarea class="form-control" name="method" id="directions" rows="5"></textarea>
+            </div>
+            <div class="mb-5">
+                <label for="notes" class="form-label">Notes</label>
+                <textarea class="form-control" name="notes" id="notes" rows="5"></textarea>
+            </div>
         </div>
   
         <div class="modal-footer">

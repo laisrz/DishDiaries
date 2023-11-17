@@ -1,18 +1,18 @@
-from os import urandom
+
+import os
 import sqlite3
-from flask import Flask, redirect, render_template, request, session, jsonify, flash, url_for
+from flask import Flask, redirect, render_template, request, session, jsonify, url_for
 from flask_session import Session
 import json
 from werkzeug.security import check_password_hash, generate_password_hash
-from werkzeug.utils import secure_filename
-from datetime import datetime, date
+from datetime import date
 from helpers import login_required
 
 
 
 # Configure application
 app = Flask(__name__)
-app.secret_key = urandom(24)
+
 
 # Configure database
 
@@ -43,6 +43,7 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS recipes (
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
+app.config['UPLOAD_FOLDER'] = os.path.abspath(os.path.join(os.path.dirname(__file__), 'static', 'images', 'users_photos'))
 Session(app)
 
 @app.after_request
@@ -200,16 +201,19 @@ def add_new_recipe():
 
     cursor = conn.cursor()
     
-
-    #Get data from json
-    data = request.get_json()
-
-    title = data["title"]
-    ingredients = data["ingredients"]
-    method = data["method"]
-    notes = data["notes"]
+    # Get data from client
+    title = request.form.get('title')
+    photo = request.files['photo']
+    ingredients = request.form.get('ingredients')
+    method = request.form.get('method')
+    notes = request.form.get('notes')
     user_id = session["user_id"]
     date_today = date.today()
+
+    # Save photo on file and generate url for it
+    photo.save(os.path.join(app.config['UPLOAD_FOLDER'], f'{title}_photo.jpg'))
+    photo_url = url_for('static', filename=f'images/users_photos/{title}_photo.jpg')
+
 
     cursor.execute('''INSERT INTO recipes (
                        title,
@@ -222,8 +226,8 @@ def add_new_recipe():
                     )
     conn.commit()
     conn.close()
-
-    response = jsonify({"title": title, "ingredients": ingredients, "method": method, "notes": notes, "date": date_today})
+    
+    response = jsonify({"title": title, "photo": photo_url, "ingredients": ingredients, "method": method, "notes": notes, "date": date_today})
     response.status_code = 200
     return response
 
@@ -249,12 +253,16 @@ def get_recipes():
                'ingredients': row[2],
                 'method':row[3],
                 'notes':row[4],
-                'date': row[5]
+                'date': row[5],
+                'photo_url': url_for('static', filename=f'images/users_photos/{row[1]}_photo.jpg')
             }
+       
         recipe_list.append(rep)
-    
+        
+
     conn.close()
     
+    # Turn recipe_list into json
     response = json.dumps(recipe_list)
     
 

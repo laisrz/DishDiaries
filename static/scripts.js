@@ -1,18 +1,18 @@
 // Send info on form 'add new recipe' in the index page to the server
 const formURL = document.querySelector('#addnewrecipe');
 
+
+// send form to the server 
 formURL.addEventListener('submit', event => {
     event.preventDefault();
-
+    
+    
     const formData = new FormData(formURL);
-    const data = Object.fromEntries(formData);
+    
 
     fetch('http://127.0.0.1:5000/addnewrecipe', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
+        body: formData
     }).then(res => res.json())
       .then(data => {
 
@@ -28,11 +28,12 @@ formURL.addEventListener('submit', event => {
 
         newH5.classList.add('card-title');
 
-        const newH6 = document.createElement("h6");
+        const newImg = document.createElement("img")
 
-        const newp = document.createElement("p");
+        newImg.setAttribute("id", "recipePhoto");
+        console.log("Image URL:", data["photo"]);
 
-        newp.classList.add('card-text');
+        newImg.src = data["photo_url"];
         
         const newa = document.createElement("a");
 
@@ -42,19 +43,15 @@ formURL.addEventListener('submit', event => {
 
         newH5.textContent = data['title'];
 
-        newH6.textContent = 'Ingredients';
-
-        newp.textContent = data['ingredients'];
 
         newa.textContent = 'Veja mais';
-
+        
 
         
         // append all new elements to their parents
         newDivCard.appendChild(newDivCardBody);
         newDivCardBody.appendChild(newH5);
-        newDivCardBody.appendChild(newH6);
-        newDivCardBody.appendChild(newp);
+        newDivCardBody.appendChild(newImg);
         newDivCardBody.appendChild(newa);
 
   
@@ -84,15 +81,17 @@ fetch('http://127.0.0.1:5000/recipes', {
 
         newDivCardBody.classList.add('card-body');
 
-        const newH5 = document.createElement("h5");
+        const newH5 = document.createElement("h4");
 
         newH5.classList.add('card-title');
 
-        const newH6 = document.createElement("h6");
+        const newImg = document.createElement("img")
+        
+        newImg.classList.add('card-img-top');
+        
+        console.log("Image URL:", recipe["photo_url"]);
 
-        const newp = document.createElement("p");
-
-        newp.classList.add('card-text');
+        newImg.src = recipe["photo_url"];
         
         const newa = document.createElement("a");
         
@@ -101,19 +100,14 @@ fetch('http://127.0.0.1:5000/recipes', {
 
         newH5.textContent = recipe['title'];
 
-        newH6.textContent = 'Ingredients';
-
-        newp.textContent = recipe['ingredients'];
-
         newa.textContent = 'Veja mais';
 
 
         
         // append all new elements to their parents
         newDivCard.appendChild(newDivCardBody);
+        newDivCardBody.appendChild(newImg);
         newDivCardBody.appendChild(newH5);
-        newDivCardBody.appendChild(newH6);
-        newDivCardBody.appendChild(newp);
         newDivCardBody.appendChild(newa);
 
   
@@ -289,43 +283,4 @@ fetch('http://127.0.0.1:5000/recipes', {
 
   });
 
-  function createNewDocument() {
-    // Create a new HTML document
-    var newDoc = document.implementation.createHTMLDocument('New Document');
-
-    // Populate the document with information
-    var body = newDoc.body;
-    var heading = document.createElement('h1');
-    heading.textContent = 'Welcome to the New Document!';
-    body.appendChild(heading);
-
-    // Add more content as needed
-
-    return newDoc;
-    }
-    function serializeDocument(doc) {
-        return new XMLSerializer().serializeToString(doc);
-    }
-
-    function createBlob(htmlContent) {
-      return new Blob([htmlContent], { type: 'text/html' });
-  }
-
-  function createBlobURL(blob) {
-    return URL.createObjectURL(blob);
-}
-
-function redirectToNewDocument(blobURL) {
-  window.location.href = blobURL;
-}
-  const button = document.getElementById('community');
-  button.addEventListener("click",function () {
-    var newDoc = createNewDocument();
-    var htmlContent = serializeDocument(newDoc);
-    var blob = createBlob(htmlContent);
-    var blobURL = createBlobURL(blob);
-    redirectToNewDocument(blobURL);
-
-
-  });
  

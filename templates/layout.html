@@ -31,7 +31,6 @@
                 <div class="collapse navbar-collapse" id="navbar">
                     {% if session["user_id"] %}
                         <ul class="navbar-nav me-auto mt-2">
-                            <li class="nav-item"><a class="nav-link" href="/quote">Quote</a></li>
                             <li class="nav-item"><a class="nav-link" href="/buy">Buy</a></li>
                             <li class="nav-item"><a class="nav-link" href="/sell">Sell</a></li>
                             <li class="nav-item"><a class="nav-link" href="/history">History</a></li>
@@ -39,6 +38,7 @@
                         <ul class="navbar-nav ms-auto mt-2">
                             <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
                         </ul>
+
                     {% else %}
                         <ul class="navbar-nav ms-auto mt-2">
                             <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
@@ -49,13 +49,56 @@
             </nav>
         </div>
 
-        {% if get_flashed_messages() %}
-            <header>
-                <div class="alert alert-primary mb-0 text-center" role="alert">
-                    {{ get_flashed_messages() | join(" ") }}
-                </div>
-            </header>
-        {% endif %}
+        {% if session["user_id"] %}
+        <!--Left side nav bar-->
+<div class="sidenav">
+    <button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addNewRecipe">Create New Recipe</button>
+  
+  </div>
+    
+  <!--Modal to add new recipe-->
+  <div class="modal fade" id="addNewRecipe" tabindex="-1" role="dialog" aria-labelledby="newRecipe" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newRecipe">Add new recipe</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="addnewrecipe">
+        <div class="modal-body">
+          <label class="form-label">Recipe Title</label>
+            <input type="text" name="title" class="form-control" placeholder="Recipe Title">                                 
+          <div class="mb-3">
+            <label for="ingredients" class="form-label">Ingredients</label>
+            <textarea class="form-control" name="ingredients" id="ingredients" rows="5"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="directions" class="form-label">Method</label>
+            <textarea class="form-control" name="method" id="directions" rows="5"></textarea>
+          </div>
+          <div class="mb-5">
+            <label for="notes" class="form-label">Notes</label>
+            <textarea class="form-control" name="notes" id="notes" rows="5"></textarea>
+          </div>
+        </div>
+  
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+
+
+            
+
+
 
         <main class="container-fluid py-5 text-center">
             {% block main %}{% endblock %}

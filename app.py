@@ -1,4 +1,4 @@
-import os
+from os import urandom
 import sqlite3
 from flask import Flask, redirect, render_template, request, session, jsonify, flash, url_for
 from flask_session import Session
@@ -12,6 +12,7 @@ from helpers import login_required
 
 # Configure application
 app = Flask(__name__)
+app.secret_key = urandom(24)
 
 # Configure database
 
@@ -72,9 +73,9 @@ def login():
         password = request.form.get("password")
         # Ensure username was submitted
         if not username:
-            response = jsonify({"message": "Must provide username"})
-            response.status_code = 400
-            return response
+            flash("Must provide username")
+            return redirect(url_for('login'))
+            
 
         # Ensure password was submitted
         if not password:
@@ -91,9 +92,8 @@ def login():
         if len(rows) != 1 or not check_password_hash(
             rows[0][2], password
         ):
-            response = jsonify({"message": "Username and/or password doesn't exist"})
-            response.status_code = 400
-            return response
+            flash("Username and/or password doesn't exist")
+            return redirect(url_for('login'))
 
         # Remember which user has logged in
         session["user_id"] = rows[0][0]
@@ -136,9 +136,8 @@ def register():
 
         # check if username is blank
         if not username:
-            response = jsonify({"message": "Must provide username"})
-            response.status_code = 400
-            return response
+            flash("Must provide username")
+            return redirect(url_for('register'))
         
         # check if username already exists
         cursor.execute(
@@ -210,7 +209,7 @@ def add_new_recipe():
     method = data["method"]
     notes = data["notes"]
     user_id = session["user_id"]
-    date_today = datetime.now()
+    date_today = date.today()
 
     cursor.execute('''INSERT INTO recipes (
                        title,
@@ -261,7 +260,10 @@ def get_recipes():
 
     return response
 
-
+@app.route("/recipe")
+@login_required
+def get_recipe():
+    return render_template("/recipe.html")
 
 if __name__ == '__main__':
     app.run(debug=True)

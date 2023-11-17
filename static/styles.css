@@ -114,6 +114,14 @@ p {
     font-family: 'Roboto', sans-serif;
 }
 
+/* Recipes */
+
+article {
+    margin-left: 12rem;
+    margin-top: 0;
+    padding-top: 0;
+}
+
 /* Créditos */
 
 .creditos {

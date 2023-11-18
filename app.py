@@ -259,10 +259,45 @@ def get_recipes():
 
     return response
 
+@app.route("/deleterecipe", methods=['POST'])
+@login_required
+def delete_recipe():
+    #Connecting to database
+    conn = sqlite3.connect('dishdiaries.db')
+
+    cursor = conn.cursor()
+
+    # Get data from client
+    data = request.get_json()
+    title = data['title']
+    date_recipe = data['date']
+    user_id = session["user_id"]
+
+    cursor.execute("SELECT * FROM recipes WHERE user_id = ? AND title = ? AND creation_date = ?", (user_id, title, date_recipe))
+    rows = cursor.fetchall()
+    
+
+    # Delete recipe from database
+    if len(rows) == 1:
+        id = rows[0][0]
+        
+        cursor.execute("DELETE FROM recipes WHERE recipe_id = ?", [id])
+        conn.commit()
+        conn.close()
+        # TODO delete images from file
+        response = jsonify({"message": "Recipe deleted"})
+        response.status_code = 200
+        return response
+
+    response = jsonify({"message": "Unable to delete recipe"})
+    response.status_code = 400
+    return response
+    
+
 @app.route("/layout2")
 @login_required
-def get_recipe():
-    return render_template("/layout2.html")
+def get_layout():
+    return render_template("layout2.html")
 
 if __name__ == '__main__':
     app.run(debug=True)

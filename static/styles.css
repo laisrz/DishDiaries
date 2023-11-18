@@ -131,6 +131,7 @@ p {
     margin-left: 13rem;
     margin-right: 1rem;
     
+    
 }
 
 
@@ -142,10 +143,12 @@ p {
     border-width: thick;
     border-color: #6759a5;
     
+    
 }
 .card-title {
     font-family: 'Roboto', sans-serif;
     margin-top: 1rem;
+    margin-bottom: 1.5rem;
 }
    
 
@@ -156,6 +159,14 @@ p {
     
     
 }
+
+.delete_article {
+    width: 30px;
+    position: relative;
+    left: 13.5rem;
+    margin-bottom: 0.5rem;
+}
+
 
 /* Recipes */
 
@@ -183,10 +194,6 @@ article {
 
 .justify {
     text-align: justify;
-}
-
-.float-end {
-    margin-left: 0.6rem;
 }
 
 

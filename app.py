@@ -192,9 +192,12 @@ def add_new_recipe():
     # Get data from client
     title = request.form.get('title')
     photo = request.files['photo']
-    ingredients = request.form.get('ingredients')
-    method = request.form.get('method')
-    notes = request.form.get('notes')
+    ingredients_form = request.form.get('ingredients')
+    ingredients = ingredients_form.replace('\n', '<br>')
+    method_form = request.form.get('method')
+    method = method_form.replace('\n', '<br>')
+    notes_form = request.form.get('notes')
+    notes = notes_form.replace('\n', '<br>')
     user_id = session["user_id"]
     date_today = date.today()
 
@@ -256,10 +259,10 @@ def get_recipes():
 
     return response
 
-@app.route("/recipe")
+@app.route("/layout2")
 @login_required
 def get_recipe():
-    return render_template("/recipe.html")
+    return render_template("/layout2.html")
 
 if __name__ == '__main__':
     app.run(debug=True)

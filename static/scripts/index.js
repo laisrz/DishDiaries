@@ -99,27 +99,29 @@ fetch('http://127.0.0.1:5000/recipes', {
 // send form to the server 
 deleteArticle.addEventListener('click', async () => {
 
-await fetch('http://127.0.0.1:5000/deleterecipe', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-        'title': recipe['title'],
-        'date': recipe['date']
 
-})
-}).then(res => res.json())
-.then(data =>  { 
-    window.location.href = "/";
-});
+        await fetch('http://127.0.0.1:5000/deleterecipe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        'title': recipe['title'],
+                        'date': recipe['date']
 
+                    })
+                }).then(res => res.json())
+                    .then(data =>  { 
+  
+                    window.location.href = "/";
+        });
 
-});
+    });
+    });
 
     });
 
 
-  });
+
 
  

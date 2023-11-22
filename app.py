@@ -280,17 +280,72 @@ def delete_recipe():
     # Delete recipe from database
     if len(rows) == 1:
         id = rows[0][0]
+        photo_filename = rows[0][1]
         
         cursor.execute("DELETE FROM recipes WHERE recipe_id = ?", [id])
         conn.commit()
         conn.close()
-        # TODO delete images from file
-        response = jsonify({"message": "Recipe deleted"})
-        response.status_code = 200
-        return response
+        # Delete images from file
+        # Construct the path to the file
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], f'{photo_filename}_photo.jpg')
+
+        # Check if the file exists
+        if os.path.exists(file_path):
+            # Remove the file
+            os.remove(file_path)
+
+            response = jsonify({"message": "Recipe deleted"})
+            response.status_code = 200
+            return response
+        
+        else:
+            return jsonify({"message": "File not found."})
+
+
 
     response = jsonify({"message": "Unable to delete recipe"})
     response.status_code = 400
+    return response
+
+
+@app.route("/editrecipe", methods=['POST'])
+@login_required
+def edit_recipe():
+    #Connecting to database
+    conn = sqlite3.connect('dishdiaries.db')
+
+    cursor = conn.cursor()
+
+    # Get data from client
+    data = request.get_json()
+    title = data['data']['title']
+    ingredients = data['data']['ingredients']
+    method = data['data']['method']
+    notes = data['data']['notes']
+    date_recipe = data['date']
+    user_id = session["user_id"]
+    
+    # Replace /n for <br> to respect new lines
+    ingredients_recipe = ingredients.replace('\n', '<br>')
+    method_recipe = method.replace('\n', '<br>')
+    notes_recipe = notes.replace('\n', '<br>')
+    
+    
+
+    cursor.execute('''UPDATE recipes SET
+                    title = ?,
+                    ingredients = ?,
+                    method = ?,
+                    notes = ?
+                    WHERE user_id = ?
+                    AND title = ?
+                    AND creation_date = ?''',
+                    (title, ingredients_recipe, method_recipe, notes_recipe, user_id, title, date_recipe))
+    conn.commit()
+    conn.close
+
+    response = jsonify({"title": title, "ingredients": ingredients_recipe, "method": method_recipe, "notes": notes_recipe})
+    response.status_code = 200
     return response
     
 

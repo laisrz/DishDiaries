@@ -331,7 +331,7 @@ def edit_recipe():
     notes_recipe = notes.replace('\n', '<br>')
     
     
-
+    # Update database
     cursor.execute('''UPDATE recipes SET
                     title = ?,
                     ingredients = ?,
@@ -344,9 +344,46 @@ def edit_recipe():
     conn.commit()
     conn.close
 
+    # Respond to the client
     response = jsonify({"title": title, "ingredients": ingredients_recipe, "method": method_recipe, "notes": notes_recipe})
     response.status_code = 200
     return response
+
+
+@app.route("/search", methods=['GET'])
+@login_required
+def search():
+    #Connecting to database
+    conn = sqlite3.connect('dishdiaries.db')
+    cursor = conn.cursor()
+
+    # Retrieve parameters from the request
+    query = request.args.get('query')
+    
+    # Get user_id
+    user_id = session["user_id"]
+
+    # Search database
+    cursor.execute("SELECT title FROM recipes WHERE user_id = ? AND title LIKE ? LIMIT 10", (user_id, f"%{query}%"))
+    rows = cursor.fetchall()
+
+    # Return message if the search didn't return any data
+    if not rows:
+        return jsonify({"message": "No search results"})
+    
+
+    title_list = []
+    
+    for row in rows:
+        title_list.append(row)
+
+    # Response to the client
+    results = {
+        'query': query,
+        'data': title_list  
+    }
+
+    return jsonify(results)
     
 
 @app.route("/layout2")

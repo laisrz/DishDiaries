@@ -59,11 +59,11 @@ fetch('http://127.0.0.1:5000/recipes', {
         // append all new elements to their parents
         newDivCard.appendChild(newDivCard1);
         newDivCard.appendChild(newDivCardBody);
-        newDivCard.appendChild(newDelete);
-        newDelete.appendChild(newIconDelete)
         newDivCardBody.appendChild(newImg);
         newDivCardBody.appendChild(newH5);
         newDivCardBody.appendChild(newa);
+        newDivCardBody.appendChild(newDelete);
+        newDelete.appendChild(newIconDelete)
         
         
 
@@ -119,7 +119,77 @@ deleteArticle.addEventListener('click', async () => {
     });
     });
 
+// Search
+const formSearch = document.querySelector('#formSearch');
+
+const searchInput = document.querySelector('#input_search');
+
+
+// send form to the server 
+formSearch.addEventListener('submit', event => {
+    event.preventDefault();
+
+    // Get the user input
+    let valueSearch = searchInput.value;
+    
+
+
+    // Construct the URL with parameters
+    const url = `http://127.0.0.1:5000/search?query=${encodeURIComponent(valueSearch)}`;
+
+    // Make the GET request
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+
+        // Create div to insert the query
+        const newDiv = document.createElement("div");
+
+        const newp = document.createElement("p");
+        
+        newp.textContent = '';
+
+
+        newDiv.appendChild(newp);
+
+        const currentDivSearch = document.getElementById("searchBar");
+        currentDivSearch.insertAdjacentElement('afterend', newDiv);
+
+
+        // Extract the array of recipe titles from the response
+        const titleList = (data.data && data.data.flat()) || [];
+
+        // Select the cards based on the search results
+        const recipeCards = document.querySelectorAll('.col-sm-6');
+
+        recipeCards.forEach(card => {
+            const cardTitle = card.querySelector('.card-title').textContent;
+
+            // Check if the card title is in the search results
+            if (titleList.includes(cardTitle)) {
+                card.style.display = 'block'; // Show the card
+            } else {
+                card.style.display = 'none'; // Hide the card
+            }
+        });
+
+        // Update the message div
+        if (titleList.length === 0) {
+            newp.textContent = data.message;
+        }
+
+    })
+    .catch(error => {
+        // Handle errors
+        console.error('Error:', error);
     });
+
+
+
+
+});
+
+});
 
 
 

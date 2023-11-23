@@ -14,17 +14,24 @@ body {
 
 p {
     font-size: 18px;
+    margin-top: 20px;
+    
 }
 
 /* Barra de Navegação */
 
 .navbar {
     background-color: #defeff;
+    padding-right: 1.5rem;
+    
+
 }
 
 .navbar-brand {
     margin-left: 20px;
     margin-right: 20px;
+    
+    
 }
 
 #logo {
@@ -44,8 +51,9 @@ p {
 }
 
 .login-border {
-    margin-left: 200px;
+    margin-left: 12rem;
     margin-right: 200px;
+    margin-top: 2rem;
     border-style: solid;
     border-color: black;
     background-color: #defeff;
@@ -58,11 +66,40 @@ p {
 }
 
 /* Index Page */
+/* Search bar */
+
+#searchBar {
+    margin-left: 30rem;
+    margin-top: 0.80rem;
+
+}
+
+#input_search {
+    
+    border-radius: 10px;
+    border-color: #6759a5;
+    height: 2.5rem;
+    border-width: thick;
+    border-style: solid;
+    
+
+}
+
+.btn-outline-light {
+
+    background-color: #6759a5;
+    border-color: #ffffff;
+    color: #322763;
+    border-style: solid;
+    border-width: thick;
+    
+}
+
 /* Sidebar */
 
  .sidenav {
     height: 100%;
-    width: 12%; /* Set the width of the sidebar */
+    width: 13%; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     top: 70px; /* Stay at the top */
@@ -70,6 +107,9 @@ p {
     background-color: #6759a5;
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 30px;
+    border-right-style: solid;
+    border-right-width: thick;
+    border-color: #4f4287;
   }
   
   /* The navigation menu links */
@@ -78,16 +118,8 @@ p {
     text-decoration: none;
     text-align: left;
     font-size: 18px;
-    color: #818181;
     display: block;
   }
-  
-  /* When you mouse over the navigation links, change their color */
-  .sidenav a:hover {
-    color: black;
-  }
-  
-
   
   /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
   @media screen and (max-height: 450px) {
@@ -95,30 +127,73 @@ p {
     .sidenav a {font-size: 18px;}
   } 
 
+  .btn-light {
+    margin-left: 1rem;
+    margin-right: 0.85rem;
+    background-color: #defeff;
+    border-color: #ffffff;
+    color: #322763;
+    border-style: solid;
+    border-width: thick;
+    
+  }
+
+  .btn-light:hover {
+    color:black;
+  }
+ 
 
 /* Modal to add new recipe */
 
 
 /* Card for recipes */
 .recipecard {
-    margin-left: 12rem;
-    margin-right: 2rem;
+    margin-left: 13rem;
+    margin-right: 1rem;
+    
+    
 }
+
 
 .card {
     margin-top: 2rem;
-    width: 280px;
+    margin-right: 3.5rem;
+    width: 285px;
+    border-style: solid;
+    border-width: thick;
+    border-color: #6759a5;
+    padding: 0 0 0 0;
+    
+    
 }
+
+.card-body {
+    margin: 1rem 1rem 1rem 1rem;
+}
+
+
 .card-title {
     font-family: 'Roboto', sans-serif;
     margin-top: 1rem;
+    margin-bottom: 1.5rem;
 }
    
 
 .card-img-top {
     height: 180px;
     width: 247px;
+    padding-right: 2rem;
+    
+    
 }
+
+.delete_article {
+    width: 30px;
+    position: relative;
+    left: 14rem;
+    margin-bottom: 0.5rem;
+}
+
 
 /* Recipes */
 
@@ -126,6 +201,26 @@ article {
     margin-left: 12rem;
     margin-top: 0;
     padding-top: 0;
+    text-align: left;
+}
+.mt-5 {
+    border-style: solid;
+    border-width: thick;
+    border-color: #6759a5;
+    
+}
+
+#recipe_title {
+    padding-top: 1rem;
+}
+
+#new_photo {
+    width: 300px;
+    height: 200px;
+}
+
+.justify {
+    text-align: justify;
 }
 
 

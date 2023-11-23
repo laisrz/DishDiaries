@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block title %}
+`${recipe['title']}`
+{% endblock %}
+
+{% block main %}
+<div class="container mt-5">
+    <div class="row">
+        
+        <div class="col-lg-11">
+            <!-- Post content-->
+            <article>
+                <!-- Post header-->
+                <button class="btn btn-sm btn-outline-success float-end" data-bs-toggle="modal" data-bs-target="#editModal" id="edit_article">edit recipe</button>
+                <header class="mb-4">
+                    <!-- Post title-->
+                    <h1 class="fw-bolder mb-1" id="recipe_title">recipe['title']</h1>
+                    <!-- Post meta content-->
+                    <div class="text-muted fst-italic mb-2" id="creation_date">Created in recipe['date']</div>
+                    
+                </header>
+                <!-- Preview image figure-->
+                <figure class="mb-4"><img class="img-fluid rounded" id="new_photo" src="recipe['photo_url']" /></figure>
+                <!-- Post content-->
+                <h3>Ingredients</h3>
+                <section class="mb-5">
+                    <p class="fs-5 mb-4" id="new_ingredients">recipe['ingredients']</p>
+                </section>
+                <h3>Method</h3>
+                <section class="mb-5">
+                    <p class="fs-5 mb-4 justify" id="new_method">recipe['method']</p>
+                </section>
+                <h3>Notes</h3>
+                <section class="mb-5">
+                    <p class="fs-5 mb-4 justify" id="new_notes">recipe['notes']</p>
+                </section>
+            </article>
+    
+
+    <!--Modal to edit recipe-->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editRecipe" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editRecipeNow">Edit recipe</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="modalEditRecipe">
+        <div class="modal-body">
+            <label class="form-label">Recipe Title</label>
+                <input type="text" name="title" class="form-control" id="recipeTitleInput">                       
+            <div class="mb-3">
+                <label for="ingredients" class="form-label">Ingredients</label>
+                <textarea class="form-control" name="ingredients" id="editIngredients" wrap="hard" cols="20" rows="5"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="directions" class="form-label">Method</label>
+                <textarea class="form-control" name="method" id="editMethod" rows="5"></textarea>
+            </div>
+            <div class="mb-5">
+                <label for="notes" class="form-label">Notes</label>
+                <textarea class="form-control" name="notes" id="editNotes" rows="5"></textarea>
+            </div>
+        </div>
+  
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+        </form>
+      </div>
+    </div>
+
+
+{% endblock %}

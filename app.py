@@ -6,7 +6,7 @@ from flask_session import Session
 import json
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import date
-from helpers import login_required
+from helpers import login_required, apology
 
 
 
@@ -74,15 +74,12 @@ def login():
         password = request.form.get("password")
         # Ensure username was submitted
         if not username:
-            flash("Must provide username")
-            return redirect(url_for('login'))
+            return apology("must provide username", 400)
             
 
         # Ensure password was submitted
         if not password:
-            response = jsonify({"message": "Must provide password"})
-            response.status_code = 400
-            return response
+           return apology("must provide password", 400)
 
         # Query database for username
         cursor.execute("SELECT * FROM users WHERE username = ?", [username])
@@ -93,9 +90,9 @@ def login():
         if len(rows) != 1 or not check_password_hash(
             rows[0][2], password
         ):
-            flash("Username and/or password doesn't exist")
-            return redirect(url_for('login'))
-
+            return apology("Username and/or password doesn't exist", 400)
+        
+        
         # Remember which user has logged in
         session["user_id"] = rows[0][0]
 
@@ -137,8 +134,7 @@ def register():
 
         # check if username is blank
         if not username:
-            flash("Must provide username")
-            return redirect(url_for('register'))
+            return apology("Must provide username", 400)
         
         # check if username already exists
         cursor.execute(
@@ -148,26 +144,18 @@ def register():
         name = cursor.fetchone()
 
         if name:
-            response = jsonify({"message": "Username already in use"})
-            response.status_code = 400
-            return response
+            return apology("Username already in use", 400)
 
         # check if password or confirm password is blank
         if not password:
-            response = jsonify({"message": "Password must be provided"})
-            response.status_code = 400
-            return response
+            return apology("Password must be provided", 400)
     
         if not request.form.get("confirm_password"):
-            response = jsonify({"message": "Confirm password!"})
-            response.status_code = 400
-            return response
+            return apology("Confirm password!", 400)
 
         # check if password and confirmation match
         if password != request.form.get("confirm_password"):
-            response = jsonify({"message": "Confirm password and password don't match!"})
-            response.status_code = 400
-            return response
+            return apology("Confirmed password and password don't match!", 400)
 
         hash = generate_password_hash(password)
 
@@ -204,9 +192,12 @@ def add_new_recipe():
     # Get data from client
     title = request.form.get('title')
     photo = request.files['photo']
-    ingredients = request.form.get('ingredients')
-    method = request.form.get('method')
-    notes = request.form.get('notes')
+    ingredients_form = request.form.get('ingredients')
+    ingredients = ingredients_form.replace('\n', '<br>')
+    method_form = request.form.get('method')
+    method = method_form.replace('\n', '<br>')
+    notes_form = request.form.get('notes')
+    notes = notes_form.replace('\n', '<br>')
     user_id = session["user_id"]
     date_today = date.today()
 
@@ -268,10 +259,137 @@ def get_recipes():
 
     return response
 
-@app.route("/recipe")
+@app.route("/deleterecipe", methods=['POST'])
 @login_required
-def get_recipe():
-    return render_template("/recipe.html")
+def delete_recipe():
+    #Connecting to database
+    conn = sqlite3.connect('dishdiaries.db')
+
+    cursor = conn.cursor()
+
+    # Get data from client
+    data = request.get_json()
+    title = data['title']
+    date_recipe = data['date']
+    user_id = session["user_id"]
+
+    cursor.execute("SELECT * FROM recipes WHERE user_id = ? AND title = ? AND creation_date = ?", (user_id, title, date_recipe))
+    rows = cursor.fetchall()
+    
+
+    # Delete recipe from database
+    if len(rows) == 1:
+        id = rows[0][0]
+        photo_filename = rows[0][1]
+        
+        cursor.execute("DELETE FROM recipes WHERE recipe_id = ?", [id])
+        conn.commit()
+        conn.close()
+        # Delete images from file
+        # Construct the path to the file
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], f'{photo_filename}_photo.jpg')
+
+        # Check if the file exists
+        if os.path.exists(file_path):
+            # Remove the file
+            os.remove(file_path)
+
+            response = jsonify({"message": "Recipe deleted"})
+            response.status_code = 200
+            return response
+        
+        else:
+            return jsonify({"message": "File not found."})
+
+
+
+    response = jsonify({"message": "Unable to delete recipe"})
+    response.status_code = 400
+    return response
+
+
+@app.route("/editrecipe", methods=['POST'])
+@login_required
+def edit_recipe():
+    #Connecting to database
+    conn = sqlite3.connect('dishdiaries.db')
+
+    cursor = conn.cursor()
+
+    # Get data from client
+    data = request.get_json()
+    title = data['data']['title']
+    ingredients = data['data']['ingredients']
+    method = data['data']['method']
+    notes = data['data']['notes']
+    date_recipe = data['date']
+    user_id = session["user_id"]
+    
+    # Replace /n for <br> to respect new lines
+    ingredients_recipe = ingredients.replace('\n', '<br>')
+    method_recipe = method.replace('\n', '<br>')
+    notes_recipe = notes.replace('\n', '<br>')
+    
+    
+    # Update database
+    cursor.execute('''UPDATE recipes SET
+                    title = ?,
+                    ingredients = ?,
+                    method = ?,
+                    notes = ?
+                    WHERE user_id = ?
+                    AND title = ?
+                    AND creation_date = ?''',
+                    (title, ingredients_recipe, method_recipe, notes_recipe, user_id, title, date_recipe))
+    conn.commit()
+    conn.close
+
+    # Respond to the client
+    response = jsonify({"title": title, "ingredients": ingredients_recipe, "method": method_recipe, "notes": notes_recipe})
+    response.status_code = 200
+    return response
+
+
+@app.route("/search", methods=['GET'])
+@login_required
+def search():
+    #Connecting to database
+    conn = sqlite3.connect('dishdiaries.db')
+    cursor = conn.cursor()
+
+    # Retrieve parameters from the request
+    query = request.args.get('query')
+    
+    # Get user_id
+    user_id = session["user_id"]
+
+    # Search database
+    cursor.execute("SELECT title FROM recipes WHERE user_id = ? AND title LIKE ? LIMIT 10", (user_id, f"%{query}%"))
+    rows = cursor.fetchall()
+
+    # Return message if the search didn't return any data
+    if not rows:
+        return jsonify({"message": "No search results"})
+    
+
+    title_list = []
+    
+    for row in rows:
+        title_list.append(row)
+
+    # Response to the client
+    results = {
+        'query': query,
+        'data': title_list  
+    }
+
+    return jsonify(results)
+    
+
+@app.route("/layout2")
+@login_required
+def get_layout():
+    return render_template("layout2.html")
 
 if __name__ == '__main__':
     app.run(debug=True)

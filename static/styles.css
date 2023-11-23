@@ -190,9 +190,9 @@ p {
 
 .delete_article {
     width: 30px;
-    position: relative;
-    left: 14rem;
+    margin-left: 1rem;
     margin-bottom: 0.5rem;
+    
 }
 
 

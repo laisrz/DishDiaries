@@ -37,7 +37,7 @@ fetch('http://127.0.0.1:5000/recipes', {
 
         const newDelete = document.createElement("button");
         
-        newDelete.classList.add('btn', 'btn-outline-danger', 'btn-sm', 'delete_article');
+        newDelete.classList.add('btn', 'btn-outline-danger', 'btn-sm', 'delete_article', 'float-left');
         
         newDelete.setAttribute('id',`${recipe['title']} + ${recipe['date']}`);
 

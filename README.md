@@ -20,8 +20,8 @@ DishDiaries is a web application that allows users to create and store their rec
 #### Layout.js: contains the code to send a post request to the server for creating a new recipe. It uses fetch api to send this post request, and then creates a new recipe card with the data sent by the server back.
 #### Layout2.js: contains code to populate the layout.html with the data from the recipe the user selected. It gets the data stored in local storage and exhibit in the recipe page. It also contains the logic to edit the recipe, by sending a post request via fetch api and then updating the recipe page with the information returned by the server. 
 ### App.py
-#### Configure the application and the sqlite database.
-#### Endpoints:
+1. Configure the application and the sqlite database.
+2. Endpoints:
 
 - `GET "/"`- to access the homepage with instructions on how to perform all available operations in the API: shorten, delete,
 update and retrieve an url

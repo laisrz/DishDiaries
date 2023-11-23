@@ -23,12 +23,15 @@ p {
 .navbar {
     background-color: #defeff;
     padding-right: 1.5rem;
+    
 
 }
 
 .navbar-brand {
     margin-left: 20px;
     margin-right: 20px;
+    
+    
 }
 
 #logo {
@@ -48,7 +51,7 @@ p {
 }
 
 .login-border {
-    margin-left: 200px;
+    margin-left: 12rem;
     margin-right: 200px;
     margin-top: 2rem;
     border-style: solid;
@@ -74,17 +77,17 @@ p {
 #input_search {
     
     border-radius: 10px;
-    border-color: #e4bcda;
+    border-color: #6759a5;
     height: 2.5rem;
-    color: #322763;
-    border-style: solid;
     border-width: thick;
+    border-style: solid;
+    
 
 }
 
 .btn-outline-light {
 
-    background-color: #e4bcda;
+    background-color: #6759a5;
     border-color: #ffffff;
     color: #322763;
     border-style: solid;
@@ -127,7 +130,7 @@ p {
   .btn-light {
     margin-left: 1rem;
     margin-right: 0.85rem;
-    background-color: #e4bcda;
+    background-color: #defeff;
     border-color: #ffffff;
     color: #322763;
     border-style: solid;
@@ -149,10 +152,6 @@ p {
     margin-right: 1rem;
     
     
-}
-
-.row {
-    margin-left: 0.15rem;
 }
 
 

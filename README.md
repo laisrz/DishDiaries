@@ -15,8 +15,8 @@ DishDiaries is a web application that allows users to create and store their rec
 #### Register.html: contain the structure for the register page.
 ### Static
 #### Styles.css: contain all the styles for the elements of the page.
-#### Scripts
-##### Index.js: 
+### Scripts
+#### Index.js: 
 ## API Endpoints
 
 - `GET "/"`- to access the homepage with instructions on how to perform all available operations in the API: shorten, delete,

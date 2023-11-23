@@ -67,22 +67,36 @@ p {
 
 #searchBar {
     margin-left: 30rem;
+    margin-top: 0.80rem;
 
 }
 
 #input_search {
     
     border-radius: 10px;
-    border-color: rgb(158, 231, 158);
+    border-color: #e4bcda;
     height: 2.5rem;
+    color: #322763;
+    border-style: solid;
+    border-width: thick;
 
+}
+
+.btn-outline-light {
+
+    background-color: #e4bcda;
+    border-color: #ffffff;
+    color: #322763;
+    border-style: solid;
+    border-width: thick;
+    
 }
 
 /* Sidebar */
 
  .sidenav {
     height: 100%;
-    width: 14%; /* Set the width of the sidebar */
+    width: 13%; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     top: 70px; /* Stay at the top */
@@ -101,16 +115,8 @@ p {
     text-decoration: none;
     text-align: left;
     font-size: 18px;
-    color: #818181;
     display: block;
   }
-  
-  /* When you mouse over the navigation links, change their color */
-  .sidenav a:hover {
-    color: black;
-  }
-  
-
   
   /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
   @media screen and (max-height: 450px) {
@@ -120,6 +126,17 @@ p {
 
   .btn-light {
     margin-left: 1rem;
+    margin-right: 0.85rem;
+    background-color: #e4bcda;
+    border-color: #ffffff;
+    color: #322763;
+    border-style: solid;
+    border-width: thick;
+    
+  }
+
+  .btn-light:hover {
+    color:black;
   }
  
 
@@ -134,17 +151,28 @@ p {
     
 }
 
+.row {
+    margin-left: 0.15rem;
+}
+
 
 .card {
     margin-top: 2rem;
-    margin-right: 4rem;
-    width: 280px;
+    margin-right: 3.5rem;
+    width: 285px;
     border-style: solid;
     border-width: thick;
     border-color: #6759a5;
+    padding: 0 0 0 0;
     
     
 }
+
+.card-body {
+    margin: 1rem 1rem 1rem 1rem;
+}
+
+
 .card-title {
     font-family: 'Roboto', sans-serif;
     margin-top: 1rem;
@@ -163,8 +191,8 @@ p {
 .delete_article {
     width: 30px;
     position: relative;
-    left: 3rem;
-    margin-bottom: -2rem;
+    left: 14rem;
+    margin-bottom: 0.5rem;
 }
 
 

@@ -59,11 +59,12 @@ fetch('http://127.0.0.1:5000/recipes', {
         // append all new elements to their parents
         newDivCard.appendChild(newDivCard1);
         newDivCard.appendChild(newDivCardBody);
+        newDivCard.appendChild(newDelete);
+        newDelete.appendChild(newIconDelete)
         newDivCardBody.appendChild(newImg);
         newDivCardBody.appendChild(newH5);
         newDivCardBody.appendChild(newa);
-        newDivCardBody.appendChild(newDelete);
-        newDelete.appendChild(newIconDelete)
+        
         
         
 

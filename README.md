@@ -10,7 +10,13 @@ DishDiaries is a web application that allows users to create and store their rec
 #### Apology.html: contain link to image that is shown when the user doesn't provide the required information during registering or logging in.
 #### Index.html: contain the structure for the search bar and cards for recipes.
 #### Layout.html: contain the layout's structure for all the web pages on the website. Including the navbar and sidebar, and the modal for creating new recipes.
-#### Layout2.html: contain the layout's structure for the pages that exhibit 
+#### Layout2.html: contain the layout's structure for the pages that exhibit the full recipe, plus the structure for the edit button and modal.
+#### Login.html: contain the structure for the login page.
+#### Register.html: contain the structure for the register page.
+### Static
+#### Styles.css: contain all the styles for the elements of the page.
+#### Scripts
+##### Index.js: 
 ## API Endpoints
 
 - `GET "/"`- to access the homepage with instructions on how to perform all available operations in the API: shorten, delete,

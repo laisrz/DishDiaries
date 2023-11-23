@@ -35,7 +35,7 @@ formURL.addEventListener('submit', event => {
         const newImg = document.createElement("img")
 
         newImg.setAttribute("id", "recipePhoto");
-        console.log("Image URL:", data["photo"]);
+        
 
         newImg.src = data["photo_url"];
         
@@ -48,7 +48,7 @@ formURL.addEventListener('submit', event => {
         newH5.textContent = data['title'];
 
 
-        newa.textContent = 'Veja mais';
+        newa.textContent = 'Go to recipe';
         
 
         

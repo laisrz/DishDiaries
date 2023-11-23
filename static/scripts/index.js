@@ -50,7 +50,7 @@ fetch('http://127.0.0.1:5000/recipes', {
 
         newH5.textContent = recipe['title'];
 
-        newa.textContent = 'Ir para receita';
+        newa.textContent = 'Go to recipe';
 
         
 

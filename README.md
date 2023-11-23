@@ -2,12 +2,15 @@
 Final Project for the CS50 Harvard Course.
 DishDiaries is a web application that allows users to create and store their recipes, in an user-friendly way. It has the ability to search through the recipes by its title, and to edit and delete them.
 #### Video Demo:  <URL HERE>
-### Technologies Used
+## Technologies Used
 *HTML, CSS, JavaScript
 *Flask, Sqlite
 ## File's Description
 ### Templates
-#### Apology.html:
+#### Apology.html: contain link to image that is shown when the user doesn't provide the required information during registering or logging in.
+#### Index.html: contain the structure for the search bar and cards for recipes.
+#### Layout.html: contain the layout's structure for all the web pages on the website. Including the navbar and sidebar, and the modal for creating new recipes.
+#### Layout2.html: contain the layout's structure for the pages that exhibit 
 ## API Endpoints
 
 - `GET "/"`- to access the homepage with instructions on how to perform all available operations in the API: shorten, delete,

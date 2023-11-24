@@ -366,6 +366,7 @@ def search():
     # Search database
     cursor.execute("SELECT title FROM recipes WHERE user_id = ? AND title LIKE ? LIMIT 10", (user_id, f"%{query}%"))
     rows = cursor.fetchall()
+    conn.close()
 
     # Return message if the search didn't return any data
     if not rows:
